@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예비 간호사 김지유의 포트폴리오 🐣</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Jua (제목용 귀여운 폰트) & Noto Sans KR (본문용 깔끔한 고딕) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind 커스텀 설정 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chick: {
+                            light: '#FFFDF7',    /* 크림 화이트 배경 */
+                            cream: '#FFF9E2',    /* 연한 커스터드 크림 */
+                            soft: '#FFF3B0',     /* 부드러운 파스텔 옐로우 */
+                            yellow: '#FFE66D',   /* 메인 병아리 옐로우 */
+                            gold: '#FFD166',     /* 진한 병아리 골드 */
+                            beak: '#FF9F1C',     /* 병아리 부리 오렌지 */
+                            cheek: '#FFADAD',    /* 발그레 볼터치 핑크 */
+                            brown: '#4A3B2C',    /* 가독성 좋은 다크 브라운 텍스트 */
+                            sub: '#7A6855',      /* 서브 브라운 텍스트 */
+                        }
+                    },
+                    fontFamily: {
+                        jua: ['Jua', 'sans-serif'],
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'chick': '0 10px 25px -5px rgba(255, 209, 102, 0.35), 0 8px 10px -6px rgba(255, 159, 28, 0.15)',
+                        'chick-lg': '0 20px 35px -10px rgba(255, 159, 28, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 전체 기본 스타일 & 커스텀 스크롤바 */
+        body {
+            background-color: #FFFDF7;
+            color: #4A3B2C;
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+            /* 귀여운 도트 & 깃털 패턴 배경 */
+            background-image: 
+                radial-gradient(#FFE66D 1.5px, transparent 1.5px),
+                radial-gradient(#FFF3B0 1.5px, #FFFDF7 1.5px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+
+        h1, h2, h3, .font-cute {
+            font-family: 'Jua', sans-serif;
+            letter-spacing: 0.02em;
+        }
+
+        /* 둥실둥실 떠다니는 병아리 애니메이션 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float 3.2s ease-in-out infinite;
+        }
+
+        /* 삐약삐약 통통 튀는 애니메이션 */
+        @keyframes bounce-cute {
+            0%, 100% { transform: scale(1, 1) translateY(0); }
+            30% { transform: scale(1.08, 0.92) translateY(3px); }
+            60% { transform: scale(0.95, 1.06) translateY(-12px); }
+        }
+        .animate-chick-pop {
+            animation: bounce-cute 0.6s ease;
+        }
+
+        /* 반짝이 트윙클 효과 */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
+        }
+        .animate-twinkle {
+            animation: twinkle 2.5s ease-in-out infinite;
+        }
+
+        /* 클릭 시 떠오르는 하트/삐약 파티클 */
+        @keyframes floatUpFade {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, 0) scale(0.7);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -75px) scale(1.3);
+            }
+        }
+        .floating-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-family: 'Jua', sans-serif;
+            animation: floatUpFade 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            user-select: none;
+        }
+
+        /* 스크롤 등장 애니메이션 */
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: all 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 달걀 껍질 지그재그 테두리 장식 */
+        .egg-card {
+            position: relative;
+            background: #FFFFFF;
+            border: 3px solid #FFE66D;
+            border-radius: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .egg-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 30px -8px rgba(255, 159, 28, 0.25);
+        }
+
+        /* 커스텀 스크롤바 */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF9E2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFD166;
+            border-radius: 999px;
+            border: 2px solid #FFF9E2;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF9F1C;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-chick-yellow selection:text-chick-brown">
+
+    <!-- 상단 스크롤 진행도 바 (병아리 게이지) -->
+    <div class="fixed top-0 left-0 w-full h-1.5 bg-chick-cream z-50">
+        <div id="scroll-progress" class="h-full bg-gradient-to-r from-chick-yellow via-chick-gold to-chick-beak w-0 transition-all duration-150 rounded-r-full"></div>
+    </div>
+
+    <!-- 상단 스티키 네비게이션 바 -->
+    <header class="sticky top-1.5 z-40 px-4 sm:px-6 pt-2">
+        <nav class="max-w-5xl mx-auto bg-white/90 backdrop-blur-md border-2 border-chick-yellow rounded-full px-4 sm:px-6 py-2.5 shadow-chick flex items-center justify-between">
+            <!-- 로고 영역 -->
+            <a href="#hero" class="flex items-center gap-2 group">
+                <span class="w-9 h-9 rounded-full bg-chick-yellow flex items-center justify-center text-lg shadow-sm group-hover:rotate-12 transition-transform">
+                    🐣
+                </span>
+                <div class="flex flex-col">
+                    <span class="font-cute text-lg sm:text-xl text-chick-brown leading-none">김지유 포트폴리오</span>
+                    <span class="text-[11px] font-medium text-chick-beak">단국대 간호학과 2학년</span>
+                </div>
+            </a>
+
+            <!-- 데스크톱 앵커 메뉴 -->
+            <ul class="hidden md:flex items-center gap-1 lg:gap-2 text-sm font-bold text-chick-brown">
+                <li><a href="#profile" class="px-3 py-1.5 rounded-full hover:bg-chick-soft transition-colors">Profile</a></li>
+                <li><a href="#about" class="px-3 py-1.5 rounded-full hover:bg-chick-soft transition-colors">About Me</a></li>
+                <li><a href="#interests" class="px-3 py-1.5 rounded-full hover:bg-chick-soft transition-colors">Interests</a></li>
+                <li><a href="#strengths" class="px-3 py-1.5 rounded-full hover:bg-chick-soft transition-colors">Strengths</a></li>
+                <li><a href="#hobbies" class="px-3 py-1.5 rounded-full hover:bg-chick-soft transition-colors">Hobbies</a></li>
+                <li><a href="#goal" class="px-3 py-1.5 rounded-full bg-chick-yellow/80 hover:bg-chick-gold transition-colors text-chick-brown shadow-sm">My Goal ✨</a></li>
+            </ul>
+
+            <!-- 모바일 메뉴 토글 버튼 -->
+            <button id="mobile-menu-btn" aria-label="메뉴 열기" class="md:hidden w-10 h-10 rounded-full bg-chick-cream border border-chick-gold flex items-center justify-center text-chick-brown active:scale-95 transition">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+
+        <!-- 모바일 드롭다운 메뉴 -->
+        <div id="mobile-menu" class="hidden md:hidden max-w-5xl mx-auto mt-2 bg-white/95 backdrop-blur-md border-2 border-chick-yellow rounded-3xl p-4 shadow-chick-lg">
+            <ul class="grid grid-cols-2 gap-2 text-center font-cute text-base text-chick-brown">
+                <li><a href="#profile" class="mobile-link block py-2.5 rounded-2xl bg-chick-cream hover:bg-chick-yellow transition">🐣 Profile</a></li>
+                <li><a href="#about" class="mobile-link block py-2.5 rounded-2xl bg-chick-cream hover:bg-chick-yellow transition">💛 About Me</a></li>
+                <li><a href="#interests" class="mobile-link block py-2.5 rounded-2xl bg-chick-cream hover:bg-chick-yellow transition">🐱 Interests</a></li>
+                <li><a href="#strengths" class="mobile-link block py-2.5 rounded-2xl bg-chick-cream hover:bg-chick-yellow transition">🌟 Strengths</a></li>
+                <li><a href="#hobbies" class="mobile-link block py-2.5 rounded-2xl bg-chick-cream hover:bg-chick-yellow transition">🎬 Hobbies</a></li>
+                <li><a href="#goal" class="mobile-link block py-2.5 rounded-2xl bg-chick-yellow hover:bg-chick-gold transition">🏥 My Goal</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 메인 콘텐츠 컨테이너 -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pb-20 space-y-20 sm:space-y-24">
+
+        <!-- =========================================================
+             1. 히어로 (HERO) 섹션
+        ========================================================== -->
+        <section id="hero" class="pt-8 sm:pt-12">
+            <div class="relative bg-gradient-to-br from-white via-chick-cream to-chick-soft border-4 border-chick-yellow rounded-[2.5rem] p-6 sm:p-12 shadow-chick-lg overflow-hidden">
+                
+                <!-- 장식용 반짝이 & 발자국 SVG -->
+                <div class="absolute top-6 left-8 text-chick-beak text-2xl animate-twinkle select-none">✦</div>
+                <div class="absolute top-14 right-12 text-chick-gold text-3xl animate-twinkle select-none" style="animation-delay: 0.8s;">✨</div>
+                <div class="absolute bottom-8 left-12 text-chick-beak/60 text-xl animate-twinkle select-none" style="animation-delay: 1.4s;">🐣</div>
+
+                <div class="relative z-10 flex flex-col-reverse lg:flex-row items-center justify-between gap-8 lg:gap-12">
+                    <!-- 왼쪽 텍스트 소개 -->
+                    <div class="flex-1 text-center lg:text-left space-y-5">
+                        <div class="inline-flex items-center gap-2 bg-white border-2 border-chick-gold px-4 py-1.5 rounded-full shadow-sm">
+                            <span class="w-2.5 h-2.5 rounded-full bg-chick-beak animate-ping"></span>
+                            <span class="text-xs sm:text-sm font-bold text-chick-brown">단국대학교 간호학과 2학년 · 자기소개 페이지</span>
+                        </div>
+
+                        <h1 class="text-3xl sm:text-5xl lg:text-[3.2rem] text-chick-brown leading-tight">
+                            안녕하세요,<br>
+                            따뜻한 마음을 전하는<br>
+                            <span class="inline-block bg-chick-yellow px-3 py-0.5 rounded-2xl border-b-4 border-chick-beak text-chick-brown mt-1">
+                                예비 간호사 김지유
+                            </span>입니다!
+                        </h1>
+
+                        <p class="text-sm sm:text-base text-chick-sub leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
+                            새로운 배움을 즐기고 사람들과 소통하며 따뜻한 에너지를 나누는 <strong class="text-chick-brown underline decoration-chick-gold decoration-4">ESTJ 간호학도</strong>입니다. 
+                            미래의 멋진 <strong class="text-chick-beak">NICU(신생아중환자실) 간호사</strong>를 꿈꾸며 오늘도 한 걸음씩 열심히 성장하고 있어요! 💛
+                        </p>
+
+                        <!-- CTA 버튼 그룹 -->
+                        <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                            <a href="#profile" class="px-6 py-3.5 rounded-full bg-chick-beak hover:bg-orange-500 text-white font-cute text-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition flex items-center gap-2">
+                                <span>지유 알아보기</span>
+                                <i class="fa-solid fa-arrow-down text-sm"></i>
+                            </a>
+                            <button id="chick-cheer-btn" type="button" class="px-6 py-3.5 rounded-full bg-white hover:bg-chick-yellow border-2 border-chick-gold text-chick-brown font-cute text-lg shadow-sm transform active:scale-95 transition flex items-center gap-2">
+                                <span>지유 응원 누르기</span>
+                                <span id="cheer-count" class="bg-chick-cream px-2.5 py-0.5 rounded-full text-sm text-chick-beak border border-chick-gold">100+</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 오른쪽 커스텀 병아리 & 알껍질 마스코트 SVG 일러스트 -->
+                    <div class="relative flex flex-col items-center">
+                        <!-- 말풍선 -->
+                        <div id="hero-speech" class="mb-2 bg-white border-2 border-chick-beak px-4 py-1.5 rounded-2xl shadow-sm font-cute text-sm sm:text-base text-chick-brown relative animate-bounce">
+                            반가워요! 클릭해 보세요 💛
+                            <div class="w-3 h-3 bg-white border-r-2 border-b-2 border-chick-beak transform rotate-45 absolute -bottom-1.5 left-1/2 -translate-x-1/2"></div>
+                        </div>
+
+                        <!-- 인터랙티브 SVG 병아리 마스코트 -->
+                        <div id="mascot-container" class="cursor-pointer animate-float select-none p-2" title="클릭하면 인사해요!">
+                            <svg class="w-56 h-56 sm:w-68 sm:h-68 drop-shadow-xl" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- 배경 후광 원 -->
+                                <circle cx="130" cy="135" r="105" fill="#FFFFFF" fill-opacity="0.85" stroke="#FFD166" stroke-width="4" stroke-dasharray="10 8"/>
+                                
+                                <!-- 간호사 캡 (귀여운 포인트!) -->
+                                <path d="M98 48 L110 26 L150 26 L162 48 Z" fill="#FFFFFF" stroke="#4A3B2C" stroke-width="3.5" stroke-linejoin="round"/>
+                                <!-- 간호사 캡 십자가 하트 -->
+                                <rect x="127" y="31" width="6" height="14" rx="2" fill="#FF9F1C"/>
+                                <rect x="123" y="35" width="14" height="6" rx="2" fill="#FF9F1C"/>
+
+                                <!-- 병아리 왼팔 날개 -->
+                                <ellipse cx="64" cy="142" rx="22" ry="14" transform="rotate(-25 64 142)" fill="#FFD166" stroke="#4A3B2C" stroke-width="3.5"/>
+                                <!-- 병아리 오른팔 날개 -->
+                                <ellipse cx="196" cy="142" rx="22" ry="14" transform="rotate(25 196 142)" fill="#FFD166" stroke="#4A3B2C" stroke-width="3.5"/>
+
+                                <!-- 병아리 몸통 & 얼굴 -->
+                                <path d="M68 135 C68 82, 95 48, 130 48 C165 48, 192 82, 192 135 C192 182, 168 205, 130 205 C92 205, 68 182, 68 135 Z" fill="#FFE66D" stroke="#4A3B2C" stroke-width="4"/>
+                                
+                                <!-- 배 부분 하얀 솜털 -->
+                                <ellipse cx="130" cy="155" rx="40" ry="32" fill="#FFFDF7"/>
+
+                                <!-- 병아리 눈 (반짝이는 눈망울) -->
+                                <circle cx="106" cy="105" r="8.5" fill="#4A3B2C"/>
+                                <circle cx="103" cy="102" r="3" fill="#FFFFFF"/>
+                                <circle cx="154" cy="105" r="8.5" fill="#4A3B2C"/>
+                                <circle cx="151" cy="102" r="3" fill="#FFFFFF"/>
+
+                                <!-- 발그레 볼터치 -->
+                                <ellipse cx="88" cy="120" rx="11" ry="6.5" fill="#FFADAD" fill-opacity="0.8"/>
+                                <ellipse cx="172" cy="120" rx="11" ry="6.5" fill="#FFADAD" fill-opacity="0.8"/>
+
+                                <!-- 오렌지 부리 -->
+                                <path d="M118 117 Q130 110 142 117 Q130 132 118 117 Z" fill="#FF9F1C" stroke="#4A3B2C" stroke-width="3" stroke-linejoin="round"/>
+                                <path d="M121 121 Q130 135 139 121" fill="#FF7B00" stroke="#4A3B2C" stroke-width="2.5" stroke-linecap="round"/>
+
+                                <!-- 달걀 껍질 바지 (하단 지그재그) -->
+                                <path d="M64 162 L82 176 L98 160 L114 176 L130 158 L146 176 L162 160 L178 176 L196 162 C194 205, 168 228, 130 228 C92 228, 66 205, 64 162 Z" fill="#FFFFFF" stroke="#4A3B2C" stroke-width="4" stroke-linejoin="round"/>
+
+                                <!-- 귀여운 병아리 발 -->
+                                <path d="M102 226 L94 240 M102 226 L102 242 M102 226 L111 240" stroke="#FF9F1C" stroke-width="4.5" stroke-linecap="round"/>
+                                <path d="M158 226 L149 240 M158 226 L158 242 M158 226 L166 240" stroke="#FF9F1C" stroke-width="4.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             2. PROFILE (프로필) 섹션
+        ========================================================== -->
+        <section id="profile" class="reveal-section scroll-mt-24">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-chick-yellow text-chick-brown font-cute text-sm px-4 py-1 rounded-full border border-chick-gold mb-2">
+                    01 · NURSE STUDENT ID CARD
+                </span>
+                <h2 class="text-3xl sm:text-4xl text-chick-brown">Profile · 김지유 학생증 🪪</h2>
+            </div>
+
+            <!-- 간호학과 학생증 컨셉 카드 -->
+            <div class="egg-card p-6 sm:p-10 shadow-chick">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <!-- 왼쪽: 프로필 아바타 & 소속 뱃지 -->
+                    <div class="flex flex-col items-center text-center md:w-1/3 bg-chick-cream border-2 border-dashed border-chick-gold rounded-3xl p-6 w-full">
+                        <div class="w-32 h-32 rounded-full bg-gradient-to-tr from-chick-yellow to-chick-soft border-4 border-white shadow-md flex items-center justify-center text-6xl mb-4 relative">
+                            👩‍⚕️
+                            <span class="absolute -bottom-1 -right-1 bg-chick-beak text-white text-xs font-bold px-2.5 py-1 rounded-full border-2 border-white">
+                                2학년
+                            </span>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl text-chick-brown">김지유 <span class="text-base font-sans font-normal text-chick-sub">(Kim Jiyu)</span></h3>
+                        <p class="text-sm font-bold text-chick-beak mt-1">단국대학교 간호학과</p>
+                        <p class="text-xs text-chick-sub mt-0.5">Dankook Univ. Dept. of Nursing</p>
+                    </div>
+
+                    <!-- 오른쪽: 상세 프로필 & MBTI 분석 -->
+                    <div class="flex-1 w-full space-y-6">
+                        <!-- 기본 정보 그리드 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-chick-light border-2 border-chick-soft rounded-2xl p-4 flex items-center gap-3.5">
+                                <div class="w-11 h-11 rounded-2xl bg-chick-yellow flex items-center justify-center text-xl shrink-0">🏫</div>
+                                <div>
+                                    <p class="text-xs text-chick-sub font-bold">소속 및 학년</p>
+                                    <p class="font-bold text-chick-brown text-sm sm:text-base">단국대학교 간호학과 2학년</p>
+                                </div>
+                            </div>
+                            <div class="bg-chick-light border-2 border-chick-soft rounded-2xl p-4 flex items-center gap-3.5">
+                                <div class="w-11 h-11 rounded-2xl bg-chick-yellow flex items-center justify-center text-xl shrink-0">🧩</div>
+                                <div>
+                                    <p class="text-xs text-chick-sub font-bold">성격유형 (MBTI)</p>
+                                    <p class="font-bold text-chick-beak text-sm sm:text-base">ESTJ <span class="text-chick-brown font-medium">(다정한 리더형 관리자)</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MBTI 상세 설명 박스 -->
+                        <div class="bg-chick-cream/80 border-2 border-chick-yellow rounded-2xl p-5">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="bg-chick-beak text-white text-xs font-bold px-2.5 py-0.5 rounded-full">ESTJ 포인트</span>
+                                <h4 class="font-cute text-lg text-chick-brown">체계적인 계획력과 따뜻한 외향성의 조화!</h4>
+                            </div>
+                            <p class="text-sm text-chick-brown/90 leading-relaxed">
+                                흔히 ESTJ를 '엄격한 관리자'라고 부르지만, 저의 ESTJ는 <strong>맡은 일에 대한 철저한 책임감</strong>과 <strong>주변 사람을 살피는 다정한 관심</strong>이 어우러져 있어요! 
+                                새로운 지식을 배우는 것을 무척 좋아하고, 여러 사람들과 활발하게 소통하며 긍정적인 시너지를 만드는 것을 즐깁니다.
+                            </p>
+                        </div>
+
+                        <!-- 키워드 해시태그 뱃지들 -->
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3.5 py-1.5 rounded-full bg-chick-yellow text-chick-brown text-xs sm:text-sm font-bold shadow-sm">#예비간호사 🩺</span>
+                            <span class="px-3.5 py-1.5 rounded-full bg-chick-soft text-chick-brown text-xs sm:text-sm font-bold border border-chick-gold">#NICU꿈나무 👶</span>
+                            <span class="px-3.5 py-1.5 rounded-full bg-chick-soft text-chick-brown text-xs sm:text-sm font-bold border border-chick-gold">#파워ESTJ ⚡</span>
+                            <span class="px-3.5 py-1.5 rounded-full bg-chick-soft text-chick-brown text-xs sm:text-sm font-bold border border-chick-gold">#충치삐약이집사 🐾</span>
+                            <span class="px-3.5 py-1.5 rounded-full bg-chick-soft text-chick-brown text-xs sm:text-sm font-bold border border-chick-gold">#디지털헬스케어 💻</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             3. ABOUT ME (자기소개 & 간호 철학) 섹션
+        ========================================================== -->
+        <section id="about" class="reveal-section scroll-mt-24">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-chick-yellow text-chick-brown font-cute text-sm px-4 py-1 rounded-full border border-chick-gold mb-2">
+                    02 · WHO I AM
+                </span>
+                <h2 class="text-3xl sm:text-4xl text-chick-brown">About Me · 저를 소개합니다 💛</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 카드 1: 사람과 배움을 사랑하는 에너지 -->
+                <div class="egg-card p-6 sm:p-8 flex flex-col justify-between bg-gradient-to-b from-white to-chick-light">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-chick-soft border-2 border-chick-gold flex items-center justify-center text-3xl mb-5 shadow-sm">
+                            🌱
+                        </div>
+                        <h3 class="text-2xl text-chick-brown mb-3">호기심 가득한 소통러, 배움을 즐기다</h3>
+                        <p class="text-sm sm:text-base text-chick-sub leading-relaxed">
+                            저는 <strong class="text-chick-brown">새로운 것을 배우는 일에 늘 설렘</strong>을 느낍니다. 낯선 환경이나 새로운 전공 지식 앞에서도 두려워하기보다 "어떻게 하면 더 잘할 수 있을까?" 고민하며 즐겁게 도전합니다.
+                        </p>
+                        <p class="text-sm sm:text-base text-chick-sub leading-relaxed mt-3">
+                            또한 주변 사람들에게 따뜻한 관심이 많아 먼저 다가가 안부를 묻고, 다양한 사람들과 어울려 대화 나누는 순간에서 가장 큰 에너지를 얻습니다.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-chick-soft flex items-center justify-between text-xs font-bold text-chick-beak">
+                        <span>Keyword: 호기심 · 긍정 에너지 · 활발한 소통</span>
+                        <span>🐣 100%</span>
+                    </div>
+                </div>
+
+                <!-- 카드 2: 디지털 역량 + 따뜻한 마음을 겸비한 간호사 -->
+                <div class="egg-card p-6 sm:p-8 flex flex-col justify-between bg-gradient-to-b from-white to-chick-cream">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-chick-yellow border-2 border-chick-beak flex items-center justify-center text-3xl mb-5 shadow-sm">
+                            🩺
+                        </div>
+                        <h3 class="text-2xl text-chick-brown mb-3">디지털 기술과 따뜻한 공감의 조화</h3>
+                        <p class="text-sm sm:text-base text-chick-sub leading-relaxed">
+                            빠르게 변화하는 현대 의료 환경 속에서 <strong class="text-chick-brown">디지털 기술을 능숙하게 활용하는 스마트한 역량</strong>은 필수적이라고 생각합니다.
+                        </p>
+                        <p class="text-sm sm:text-base text-chick-sub leading-relaxed mt-3">
+                            하지만 기술이 발전할수록 가장 중요한 본질은 <strong class="text-chick-beak">'사람의 마음'</strong>입니다. 첨단 디지털 간호 역량을 갖추면서도, 환자의 작은 불안과 아픔까지 깊이 이해하고 진심으로 신뢰받을 수 있는 멋진 간호사가 되고 싶습니다!
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-chick-yellow flex items-center justify-between text-xs font-bold text-chick-brown">
+                        <span>Vision: Smart Tech + Warm Heart</span>
+                        <span>💛 Nursing</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             4. INTERESTS (요즘 관심 분야 - 반려묘 충치 & 삐약이) 섹션
+        ========================================================== -->
+        <section id="interests" class="reveal-section scroll-mt-24">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-chick-yellow text-chick-brown font-cute text-sm px-4 py-1 rounded-full border border-chick-gold mb-2">
+                    03 · MY FAVORITE THINGS
+                </span>
+                <h2 class="text-3xl sm:text-4xl text-chick-brown">Interests · 요즘 푹 빠진 고양이 돌보기 🐾</h2>
+                <p class="text-sm sm:text-base text-chick-sub mt-2 max-w-2xl mx-auto">
+                    본가에서 사랑스러운 두 마리의 고양이와 함께하고 있어요! 길에서 아기 때 구조해 가족이 된 소중한 보물들이랍니다. (카드를 클릭해 간식과 하트를 주세요! 💕)
+                </p>
+            </div>
+
+            <!-- 따뜻한 구조 스토리 배너 -->
+            <div class="bg-chick-soft/80 border-2 border-chick-gold rounded-3xl p-4 sm:p-5 mb-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left shadow-sm">
+                <span class="text-2xl sm:text-3xl">🏡</span>
+                <p class="text-sm sm:text-base text-chick-brown font-medium">
+                    <strong>작은 생명을 지키는 마음:</strong> 길 위에서 작고 여린 아기 고양이였을 때 구조해 정성껏 돌보며 키우고 있어요. 아기 생명들을 보살피는 경험은 훗날 <strong>NICU 간호사</strong>를 꿈꾸게 된 소중한 밑거름이기도 합니다!
+                </p>
+            </div>
+
+            <!-- 고양이 두 마리 카드 (충치 & 삐약이) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 첫째: 충치 -->
+                <div onclick="petCat(event, '충치', '골골송 발사! 🖤')" class="cat-card cursor-pointer egg-card p-6 sm:p-8 group relative overflow-hidden">
+                    <div class="absolute top-4 right-4 bg-chick-cream border border-chick-gold px-3 py-1 rounded-full text-xs font-bold text-chick-brown group-hover:bg-chick-yellow transition">
+                        클릭해서 쓰담쓰담 👆
+                    </div>
+                    <div class="flex items-center gap-5">
+                        <!-- 귀여운 고양이 SVG 아이콘 1 -->
+                        <div class="w-24 h-24 rounded-3xl bg-chick-cream border-2 border-chick-gold flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                            <svg class="w-16 h-16" viewBox="0 0 100 100" fill="none">
+                                <path d="M22 42 L18 15 L42 28 Q50 25 58 28 L82 15 L78 42 C85 52 85 75 50 82 C15 75 15 52 22 42 Z" fill="#4A3B2C"/>
+                                <circle cx="38" cy="50" r="5" fill="#FFE66D"/>
+                                <circle cx="62" cy="50" r="5" fill="#FFE66D"/>
+                                <circle cx="39" cy="49" r="2" fill="#4A3B2C"/>
+                                <circle cx="63" cy="49" r="2" fill="#4A3B2C"/>
+                                <path d="M46 60 L54 60 L50 65 Z" fill="#FFADAD"/>
+                                <path d="M42 68 Q46 72 50 67 Q54 72 58 68" stroke="#FFFDF7" stroke-width="2.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-2xl sm:text-3xl text-chick-brown">충치</h3>
+                                <span class="text-xs bg-chick-brown text-chick-yellow px-2.5 py-0.5 rounded-full font-bold">사랑둥이 첫째</span>
+                            </div>
+                            <p class="text-sm text-chick-sub mt-2 leading-relaxed">
+                                이름마저 너무 귀여운 매력만점 <strong>충치</strong>! 길에서 아기 때 만난 이후 씩씩하고 건강하게 자라주어 볼 때마다 큰 행복과 힐링을 선물해 줍니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 둘째: 삐약이 -->
+                <div onclick="petCat(event, '삐약이', '야옹~ 고마워요! 💛')" class="cat-card cursor-pointer egg-card p-6 sm:p-8 group relative overflow-hidden">
+                    <div class="absolute top-4 right-4 bg-chick-cream border border-chick-gold px-3 py-1 rounded-full text-xs font-bold text-chick-brown group-hover:bg-chick-yellow transition">
+                        클릭해서 쓰담쓰담 👆
+                    </div>
+                    <div class="flex items-center gap-5">
+                        <!-- 귀여운 치즈냥 SVG 아이콘 2 -->
+                        <div class="w-24 h-24 rounded-3xl bg-chick-soft border-2 border-chick-beak flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                            <svg class="w-16 h-16" viewBox="0 0 100 100" fill="none">
+                                <path d="M22 42 L18 15 L42 28 Q50 25 58 28 L82 15 L78 42 C85 52 85 75 50 82 C15 75 15 52 22 42 Z" fill="#FFD166" stroke="#4A3B2C" stroke-width="3"/>
+                                <path d="M45 27 L50 37 L55 27" stroke="#FF9F1C" stroke-width="3" stroke-linecap="round"/>
+                                <circle cx="38" cy="50" r="4.5" fill="#4A3B2C"/>
+                                <circle cx="62" cy="50" r="4.5" fill="#4A3B2C"/>
+                                <ellipse cx="29" cy="58" rx="5" ry="3" fill="#FFADAD"/>
+                                <ellipse cx="71" cy="58" rx="5" ry="3" fill="#FFADAD"/>
+                                <path d="M46 60 L54 60 L50 65 Z" fill="#FF9F1C"/>
+                                <path d="M42 68 Q46 72 50 67 Q54 72 58 68" stroke="#4A3B2C" stroke-width="2.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-2xl sm:text-3xl text-chick-brown">삐약이</h3>
+                                <span class="text-xs bg-chick-beak text-white px-2.5 py-0.5 rounded-full font-bold">병아리 닮은꼴 둘째</span>
+                            </div>
+                            <p class="text-sm text-chick-sub mt-2 leading-relaxed">
+                                작은 병아리처럼 앙증맞던 아기 시절부터 함께한 귀염둥이 <strong>삐약이</strong>! 세심하게 컨디션을 살피고 돌보며 생명 존중의 가치를 매일 배웁니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             5. STRENGTHS (나의 핵심 강점 3가지) 섹션
+        ========================================================== -->
+        <section id="strengths" class="reveal-section scroll-mt-24">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-chick-yellow text-chick-brown font-cute text-sm px-4 py-1 rounded-full border border-chick-gold mb-2">
+                    04 · CORE COMPETENCIES
+                </span>
+                <h2 class="text-3xl sm:text-4xl text-chick-brown">Strengths · 예비 간호사 김지유의 3대 강점 🌟</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 강점 1: 책임감 -->
+                <div class="egg-card p-6 sm:p-7 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-2xl bg-chick-yellow flex items-center justify-center text-2xl shadow-sm">🛡️</span>
+                            <span class="font-cute text-sm text-chick-beak bg-chick-cream px-3 py-1 rounded-full border border-chick-gold">STRENGTH 01</span>
+                        </div>
+                        <h3 class="text-2xl text-chick-brown mb-2">책임감 <span class="text-sm font-sans font-normal text-chick-sub">Responsibility</span></h3>
+                        <p class="text-sm text-chick-sub leading-relaxed">
+                            ESTJ 특유의 성실함과 꼼꼼함으로 한 번 맡은 역할은 끝까지 완수합니다. 환자의 생명을 다루는 간호학도로서 작은 부분도 놓치지 않는 단단한 책임감을 갖추고 있습니다.
+                        </p>
+                    </div>
+                    <!-- 시각적 역량 게이지 -->
+                    <div class="mt-6">
+                        <div class="flex justify-between text-xs font-bold text-chick-brown mb-1.5">
+                            <span>성실도 & 완수력</span>
+                            <span class="text-chick-beak">100%</span>
+                        </div>
+                        <div class="w-full h-3 bg-chick-cream rounded-full overflow-hidden border border-chick-gold">
+                            <div class="h-full bg-gradient-to-r from-chick-yellow to-chick-beak rounded-full w-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 강점 2: 공감 능력 -->
+                <div class="egg-card p-6 sm:p-7 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-2xl bg-chick-yellow flex items-center justify-center text-2xl shadow-sm">💗</span>
+                            <span class="font-cute text-sm text-chick-beak bg-chick-cream px-3 py-1 rounded-full border border-chick-gold">STRENGTH 02</span>
+                        </div>
+                        <h3 class="text-2xl text-chick-brown mb-2">공감 능력 <span class="text-sm font-sans font-normal text-chick-sub">Empathy</span></h3>
+                        <p class="text-sm text-chick-sub leading-relaxed">
+                            상대방의 표정과 말투에 담긴 감정을 세심하게 헤아립니다. 환자와 보호자가 느끼는 두려움에 깊이 공감하며 마음의 안정을 주는 따뜻한 치유자가 되겠습니다.
+                        </p>
+                    </div>
+                    <!-- 시각적 역량 게이지 -->
+                    <div class="mt-6">
+                        <div class="flex justify-between text-xs font-bold text-chick-brown mb-1.5">
+                            <span>따뜻한 경청 & 배려</span>
+                            <span class="text-chick-beak">100%</span>
+                        </div>
+                        <div class="w-full h-3 bg-chick-cream rounded-full overflow-hidden border border-chick-gold">
+                            <div class="h-full bg-gradient-to-r from-chick-yellow to-chick-beak rounded-full w-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 강점 3: 소통 능력 -->
+                <div class="egg-card p-6 sm:p-7 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-2xl bg-chick-yellow flex items-center justify-center text-2xl shadow-sm">💬</span>
+                            <span class="font-cute text-sm text-chick-beak bg-chick-cream px-3 py-1 rounded-full border border-chick-gold">STRENGTH 03</span>
+                        </div>
+                        <h3 class="text-2xl text-chick-brown mb-2">소통 능력 <span class="text-sm font-sans font-normal text-chick-sub">Communication</span></h3>
+                        <p class="text-sm text-chick-sub leading-relaxed">
+                            다양한 사람들과 어울려 대화하는 것을 즐기며 밝고 명확하게 의사를 전달합니다. 의료진 간의 원활한 팀워크와 환자와의 신뢰 형성을 이끄는 소통의 다리가 됩니다.
+                        </p>
+                    </div>
+                    <!-- 시각적 역량 게이지 -->
+                    <div class="mt-6">
+                        <div class="flex justify-between text-xs font-bold text-chick-brown mb-1.5">
+                            <span>협업 & 커뮤니케이션</span>
+                            <span class="text-chick-beak">100%</span>
+                        </div>
+                        <div class="w-full h-3 bg-chick-cream rounded-full overflow-hidden border border-chick-gold">
+                            <div class="h-full bg-gradient-to-r from-chick-yellow to-chick-beak rounded-full w-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             6. HOBBIES (나의 취미 생활) 섹션
+        ========================================================== -->
+        <section id="hobbies" class="reveal-section scroll-mt-24">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-chick-yellow text-chick-brown font-cute text-sm px-4 py-1 rounded-full border border-chick-gold mb-2">
+                    05 · RECHARGING TIME
+                </span>
+                <h2 class="text-3xl sm:text-4xl text-chick-brown">Hobbies · 지유의 행복한 에너지 충전소 🎨</h2>
+                <p class="text-sm text-chick-sub mt-1">카드를 클릭하면 지유의 귀여운 한마디가 펼쳐져요!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 취미 1: 영화 보기 -->
+                <div onclick="toggleHobbyNote(this)" class="cursor-pointer egg-card p-6 text-center group bg-white hover:bg-chick-cream/50">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-chick-soft border-2 border-chick-gold flex items-center justify-center text-4xl mb-4 group-hover:rotate-12 transition-transform">
+                        🎬
+                    </div>
+                    <h3 class="text-2xl text-chick-brown mb-2">영화 보기</h3>
+                    <p class="text-sm text-chick-sub">
+                        다양한 장르의 영화를 감상하며 새로운 시각과 깊은 감동을 경험하는 시간을 좋아해요.
+                    </p>
+                    <div class="hobby-note mt-4 bg-chick-yellow/70 text-chick-brown text-xs font-bold py-2 px-3 rounded-2xl border border-chick-gold">
+                        🍿 "주인공의 마음에 푹 빠져 공감하며 보는 게 최고예요!"
+                    </div>
+                </div>
+
+                <!-- 취미 2: 카페 투어하기 -->
+                <div onclick="toggleHobbyNote(this)" class="cursor-pointer egg-card p-6 text-center group bg-white hover:bg-chick-cream/50">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-chick-soft border-2 border-chick-gold flex items-center justify-center text-4xl mb-4 group-hover:rotate-12 transition-transform">
+                        ☕
+                    </div>
+                    <h3 class="text-2xl text-chick-brown mb-2">카페 투어하기</h3>
+                    <p class="text-sm text-chick-sub">
+                        분위기 좋은 예쁜 카페를 찾아다니며 맛있는 디저트와 함께 소중한 사람들과 수다 떨기!
+                    </p>
+                    <div class="hobby-note mt-4 bg-chick-yellow/70 text-chick-brown text-xs font-bold py-2 px-3 rounded-2xl border border-chick-gold">
+                        🍰 "달콤한 디저트와 예쁜 공간은 학업 스트레스 싹 날려줘요!"
+                    </div>
+                </div>
+
+                <!-- 취미 3: 보드게임 -->
+                <div onclick="toggleHobbyNote(this)" class="cursor-pointer egg-card p-6 text-center group bg-white hover:bg-chick-cream/50">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-chick-soft border-2 border-chick-gold flex items-center justify-center text-4xl mb-4 group-hover:rotate-12 transition-transform">
+                        🎲
+                    </div>
+                    <h3 class="text-2xl text-chick-brown mb-2">보드게임</h3>
+                    <p class="text-sm text-chick-sub">
+                        친구들과 함께 머리를 맞대고 전략을 세우며 웃음꽃을 피우는 짜릿한 보드게임 한 판!
+                    </p>
+                    <div class="hobby-note mt-4 bg-chick-yellow/70 text-chick-brown text-xs font-bold py-2 px-3 rounded-2xl border border-chick-gold">
+                        🏆 "소통왕 ESTJ의 승부욕과 협동심이 불타오르는 시간!"
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             7. MY GOAL (나의 인생 목표 & 미래 로드맵) 섹션
+        ========================================================== -->
+        <section id="goal" class="reveal-section scroll-mt-24">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-chick-beak text-white font-cute text-sm px-4 py-1 rounded-full shadow-sm mb-2">
+                    06 · FUTURE ROADMAP
+                </span>
+                <h2 class="text-3xl sm:text-4xl text-chick-brown">My Goal · 반짝이는 미래 설계도 🚀</h2>
+                <p class="text-sm sm:text-base text-chick-sub mt-2">
+                    간호사로서의 프로페셔널한 꿈과 사랑스러운 인생의 행복, 두 마리 토끼를 모두 잡을 거예요!
+                </p>
+            </div>
+
+            <!-- 타임라인 로드맵 컨테이너 -->
+            <div class="relative bg-gradient-to-br from-white via-chick-cream to-chick-soft border-4 border-chick-gold rounded-[2.5rem] p-6 sm:p-10 shadow-chick-lg">
+                
+                <div class="space-y-8 relative before:content-[''] before:hidden md:before:block before:absolute before:left-1/2 before:top-4 before:bottom-4 before:w-1 before:bg-chick-gold before:-translate-x-1/2">
+                    
+                    <!-- STEP 1: 대학 생활 & 스마트 역량 강화 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="md:w-[45%] bg-white border-2 border-chick-yellow rounded-3xl p-6 shadow-sm w-full">
+                            <span class="inline-block text-xs font-bold bg-chick-soft text-chick-brown px-3 py-1 rounded-full mb-2">STEP 01 · 현재 ~ 졸업 전</span>
+                            <h3 class="text-xl sm:text-2xl text-chick-brown mb-2">📚 탄탄한 간호 지식 & 디지털 역량 함양</h3>
+                            <p class="text-sm text-chick-sub leading-relaxed">
+                                단국대학교 간호학과에서 전공 이론과 임상 실습을 성실히 익히고, 디지털 헬스케어 기술을 능숙하게 다루는 준비된 예비 간호사로 성장합니다.
+                            </p>
+                        </div>
+                        <!-- 중앙 아이콘 배지 -->
+                        <div class="w-12 h-12 rounded-full bg-chick-yellow border-4 border-white shadow-md flex items-center justify-center text-xl z-10 shrink-0">
+                            🐣
+                        </div>
+                        <div class="hidden md:block md:w-[45%]"></div>
+                    </div>
+
+                    <!-- STEP 2: 졸업과 동시에 NICU 취업 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="hidden md:block md:w-[45%]"></div>
+                        <!-- 중앙 아이콘 배지 -->
+                        <div class="w-12 h-12 rounded-full bg-chick-beak text-white border-4 border-white shadow-md flex items-center justify-center text-xl z-10 shrink-0">
+                            🏥
+                        </div>
+                        <div class="md:w-[45%] bg-white border-2 border-chick-beak rounded-3xl p-6 shadow-md w-full">
+                            <span class="inline-block text-xs font-bold bg-chick-beak text-white px-3 py-1 rounded-full mb-2">STEP 02 · 졸업과 동시!</span>
+                            <h3 class="text-xl sm:text-2xl text-chick-brown mb-2">👶 NICU(신생아중환자실) 간호사 입사</h3>
+                            <p class="text-sm text-chick-sub leading-relaxed">
+                                졸업과 동시에 꿈에 그리던 <strong class="text-chick-beak">NICU(신생아중환자실)</strong>에 취업하여, 작고 소중한 아기들에게 전문적이고 세심한 간호를 제공하는 멋진 간호사로 열정적으로 일하겠습니다!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: 20대 내 행복한 결혼 & 화목한 가정 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="md:w-[45%] bg-white border-2 border-chick-cheek rounded-3xl p-6 shadow-md w-full relative overflow-hidden">
+                            <div class="absolute -right-3 -bottom-3 text-5xl opacity-20 select-none">💍</div>
+                            <span class="inline-block text-xs font-bold bg-pink-100 text-pink-700 px-3 py-1 rounded-full mb-2">STEP 03 · 20대 내 인생 목표 ✨</span>
+                            <h3 class="text-xl sm:text-2xl text-chick-brown mb-2">💖 멋있는 이상형과 결혼해 행복한 가정 꾸리기</h3>
+                            <p class="text-sm text-chick-sub leading-relaxed">
+                                간호사로서 자부심을 가지고 열심히 일하며 커리어를 쌓은 뒤, <strong class="text-chick-brown">20대 내에 에이티즈(ATEEZ) 최산처럼 피지컬 좋고 멋있는 남자</strong>와 결혼해서 사랑이 넘치는 화목한 가정을 꾸리는 것이 저의 소중한 인생 목표입니다! 🥰
+                            </p>
+                        </div>
+                        <!-- 중앙 아이콘 배지 -->
+                        <div class="w-12 h-12 rounded-full bg-pink-400 text-white border-4 border-white shadow-md flex items-center justify-center text-xl z-10 shrink-0">
+                            💐
+                        </div>
+                        <div class="hidden md:block md:w-[45%]"></div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         푸터 (FOOTER)
+    ========================================================== -->
+    <footer class="bg-white border-t-4 border-chick-yellow py-10 px-4 text-center">
+        <div class="max-w-4xl mx-auto space-y-3">
+            <div class="inline-flex items-center justify-center gap-2 text-2xl">
+                <span>🐣</span>
+                <span class="font-cute text-chick-brown">끝까지 읽어주셔서 감사합니다!</span>
+                <span>💛</span>
+            </div>
+            <p class="text-sm text-chick-sub font-medium">
+                단국대학교 간호학과 2학년 <strong class="text-chick-brown">김지유</strong> 자기소개 웹 포트폴리오
+            </p>
+            <p class="text-xs text-chick-sub/70">
+                Designed with Chick-Core Yellow & Cream White Theme · Always Warm & Smart Nursing
+            </p>
+            <div class="pt-3">
+                <a href="#hero" class="inline-flex items-center gap-1.5 text-xs font-bold bg-chick-cream hover:bg-chick-yellow text-chick-brown px-4 py-2 rounded-full border border-chick-gold transition">
+                    <i class="fa-solid fa-arrow-up"></i> 맨 위로 올라가기
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================================
+         인터랙티브 JavaScript 로직
+    ========================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. 상단 스크롤 진행도 바 업데이트
+            const progressBar = document.getElementById('scroll-progress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progressBar.style.width = `${progress}%`;
+            });
+
+            // 2. 모바일 메뉴 토글
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // 3. 스크롤 등장 (Intersection Observer) 애니메이션
+            const revealSections = document.querySelectorAll('.reveal-section');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.12
+            });
+
+            revealSections.forEach(section => {
+                revealObserver.observe(section);
+            });
+
+            // 4. 병아리 마스코트 클릭 인터랙션 (인사말 말풍선 변경 + 파티클)
+            const mascotContainer = document.getElementById('mascot-container');
+            const heroSpeech = document.getElementById('hero-speech');
+            const chickMessages = [
+                "안녕하세요! 좋은 하루 보내세요 🐣",
+                "단국대학교 간호학과 화이팅! 🩺💛",
+                "미래의 NICU 간호사 김지유입니다 👶✨",
+                "충치랑 삐약이도 보고 싶어요 🐾",
+                "교수님, 항상 감사합니다! 💖"
+            ];
+            let msgIdx = 0;
+
+            mascotContainer.addEventListener('click', (e) => {
+                // 통통 튀는 애니메이션 재실행
+                mascotContainer.classList.remove('animate-chick-pop');
+                void mascotContainer.offsetWidth; // 리플로우 트리거
+                mascotContainer.classList.add('animate-chick-pop');
+
+                // 말풍선 텍스트 변경
+                msgIdx = (msgIdx + 1) % chickMessages.length;
+                heroSpeech.innerHTML = `${chickMessages[msgIdx]}<div class="w-3 h-3 bg-white border-r-2 border-b-2 border-chick-beak transform rotate-45 absolute -bottom-1.5 left-1/2 -translate-x-1/2"></div>`;
+
+                // 클릭 위치에 파티클 생성
+                spawnFloatingParticle(e.clientX, e.clientY, "화이팅! 🐣💛");
+            });
+
+            // 5. 응원 버튼 카운터 & 하트 팡팡 효과
+            const cheerBtn = document.getElementById('chick-cheer-btn');
+            const cheerCountEl = document.getElementById('cheer-count');
+            let count = 100;
+
+            cheerBtn.addEventListener('click', (e) => {
+                count++;
+                cheerCountEl.textContent = `${count} 💛`;
+                spawnFloatingParticle(e.clientX, e.clientY, "응원 완료! +1 💛");
+            });
+        });
+
+        // 화면 클릭 시 떠오르는 귀여운 파티클 생성 함수
+        function spawnFloatingParticle(x, y, text) {
+            const particle = document.createElement('div');
+            particle.className = 'floating-particle text-chick-beak bg-white/95 border-2 border-chick-gold px-3 py-1 rounded-full shadow-md text-sm sm:text-base';
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y - 10}px`;
+            particle.textContent = text;
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 1100);
+        }
+
+        // 고양이 카드 클릭 시 반응 함수
+        function petCat(event, catName, reactionText) {
+            spawnFloatingParticle(event.clientX, event.clientY, `${catName}: ${reactionText}`);
+        }
+
+        // 취미 카드 클릭 시 하이라이트 반응 함수
+        function toggleHobbyNote(cardEl) {
+            const rect = cardEl.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const topY = rect.top + 30;
+            spawnFloatingParticle(centerX, topY, "취향 저격! ✨💛");
+        }
+    </script>
+</body>
+</html>
